@@ -30,6 +30,8 @@ const UserInfo = () => {
           User id: <code>{currentUser.id}</code>
           <br />
           User role: <code>{currentUser.role}</code>
+          <br />
+          User email: <code>{currentUser.email}</code>
         </div>
       </>
     )
@@ -41,6 +43,9 @@ const UserInfo = () => {
         </Button>
         <Button variant="contained" href={Routes.LoginPage().pathname}>
           Login
+        </Button>
+        <Button variant="contained" href={"/api/auth/discord"}>
+          Discord Login
         </Button>
       </>
     )
@@ -62,11 +67,7 @@ const Home: BlitzPage = () => {
             <UserInfo />
           </Suspense>
         </div>
-        <p>
-          <strong>
-            <Button variant="contained">Hello</Button>
-          </strong>
-        </p>
+        <p></p>
         <div className="buttons" style={{ marginTop: "5rem" }}>
           <a
             className="button"
