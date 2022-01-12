@@ -18,14 +18,14 @@ const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <button
-          className="button small"
+        <Button
+          variant="contained"
           onClick={async () => {
             await logoutMutation()
           }}
         >
           Logout
-        </button>
+        </Button>
         <div>
           User id: <code>{currentUser.id}</code>
           <br />
@@ -36,16 +36,12 @@ const UserInfo = () => {
   } else {
     return (
       <>
-        <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
+        <Button variant="contained" href={Routes.SignupPage().pathname}>
+          Sign Up
+        </Button>
+        <Button variant="contained" href={Routes.LoginPage().pathname}>
+          Login
+        </Button>
       </>
     )
   }
@@ -71,27 +67,6 @@ const Home: BlitzPage = () => {
             <Button variant="contained">Hello</Button>
           </strong>
         </p>
-        <pre>
-          <code>blitz generate all project name:string</code>
-        </pre>
-        <div style={{ marginBottom: "1rem" }}>(And select Yes to run prisma migrate)</div>
-        <div>
-          <p>
-            Then <strong>restart the server</strong>
-          </p>
-          <pre>
-            <code>Ctrl + c</code>
-          </pre>
-          <pre>
-            <code>blitz dev</code>
-          </pre>
-          <p>
-            and go to{" "}
-            <Link href="/projects">
-              <a>/projects</a>
-            </Link>
-          </p>
-        </div>
         <div className="buttons" style={{ marginTop: "5rem" }}>
           <a
             className="button"
