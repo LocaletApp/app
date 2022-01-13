@@ -47,6 +47,9 @@ const UserInfo = () => {
         <Button variant="contained" href={"/api/auth/discord"}>
           Discord Login
         </Button>
+        <Button variant="contained" href={"/api/auth/google"}>
+          Google Login
+        </Button>
       </>
     )
   }
