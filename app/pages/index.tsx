@@ -32,6 +32,8 @@ const UserInfo = () => {
           User role: <code>{currentUser.role}</code>
           <br />
           User email: <code>{currentUser.email}</code>
+          <br />
+          Name: <code>{currentUser.name}</code>
         </div>
       </>
     )
@@ -43,9 +45,6 @@ const UserInfo = () => {
         </Button>
         <Button variant="contained" href={Routes.LoginPage().pathname}>
           Login
-        </Button>
-        <Button variant="contained" href={"/api/auth/discord"}>
-          Discord Login
         </Button>
         <Button variant="contained" href={"/api/auth/google"}>
           Google Login
