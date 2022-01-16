@@ -1,6 +1,7 @@
 import { passportAuth } from "blitz"
 import db from "db"
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
+import { router } from "next/client"
 
 const googleScopes = ["profile", "email"]
 export default passportAuth({
@@ -12,7 +13,7 @@ export default passportAuth({
         {
           clientID: process.env.AUTH_GOOGLE_CLIENTID,
           clientSecret: process.env.AUTH_GOOGLE_CLIENTSECRET,
-          callbackURL: "http://localhost:3000/api/auth/google/callback",
+          callbackURL: `${router.pathname}/api/auth/google/callback`,
           scope: googleScopes,
         },
         async function (accessToken, refreshToken, profile, done) {
