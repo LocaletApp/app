@@ -13,7 +13,7 @@ export default passportAuth({
         {
           clientID: process.env.AUTH_GOOGLE_CLIENTID,
           clientSecret: process.env.AUTH_GOOGLE_CLIENTSECRET,
-          callbackURL: process.env.HOST_URL,
+          callbackURL: `${process.env.HOST_URL}/api/auth/google/callback`,
           scope: googleScopes,
         },
         async function (accessToken, refreshToken, profile, done) {
