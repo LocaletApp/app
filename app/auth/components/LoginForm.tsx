@@ -25,7 +25,10 @@ export const LoginForm = (props: LoginFormProps) => {
             props.onSuccess?.(user)
           } catch (error: any) {
             if (error instanceof AuthenticationError) {
-              return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
+              return {
+                [FORM_ERROR]:
+                  "Invalid Credentials.. If you signed up using another service like google, please sign in using that method. Or select forgot password. ",
+              }
             } else {
               return {
                 [FORM_ERROR]:

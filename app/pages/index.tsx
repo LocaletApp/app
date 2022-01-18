@@ -30,6 +30,10 @@ const UserInfo = () => {
           User id: <code>{currentUser.id}</code>
           <br />
           User role: <code>{currentUser.role}</code>
+          <br />
+          User email: <code>{currentUser.email}</code>
+          <br />
+          Name: <code>{currentUser.name}</code>
         </div>
       </>
     )
@@ -41,6 +45,9 @@ const UserInfo = () => {
         </Button>
         <Button variant="contained" href={Routes.LoginPage().pathname}>
           Login
+        </Button>
+        <Button variant="contained" href={"/api/auth/google"}>
+          Google Login
         </Button>
       </>
     )
@@ -62,11 +69,7 @@ const Home: BlitzPage = () => {
             <UserInfo />
           </Suspense>
         </div>
-        <p>
-          <strong>
-            <Button variant="contained">Hello</Button>
-          </strong>
-        </p>
+        <p></p>
         <div className="buttons" style={{ marginTop: "5rem" }}>
           <a
             className="button"
@@ -75,22 +78,6 @@ const Home: BlitzPage = () => {
             rel="noopener noreferrer"
           >
             Documentation
-          </a>
-          <a
-            className="button-outline"
-            href="https://github.com/blitz-js/blitz"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github Repo
-          </a>
-          <a
-            className="button-outline"
-            href="https://discord.blitzjs.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Discord Community
           </a>
         </div>
       </main>
