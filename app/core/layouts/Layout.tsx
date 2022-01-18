@@ -1,12 +1,10 @@
-import { Head, BlitzLayout } from "blitz"
+import { BlitzLayout } from "blitz"
+import { Head } from "app/core/layouts/meta/Head"
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (
     <>
-      <Head>
-        <title>{title || "localet"}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Head />
 
       {children}
     </>
