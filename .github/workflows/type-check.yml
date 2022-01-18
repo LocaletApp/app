@@ -1,4 +1,4 @@
-name: Lint
+name: Type Check
 
 on:
   push:
@@ -13,8 +13,8 @@ permissions:
   contents: write
 
 jobs:
-  run-linters:
-    name: Run linters
+  run-type-checker:
+    name: Run type checker
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +29,5 @@ jobs:
       - name: Install dependencies
         run: yarn --immutable
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v1
-        with:
-          eslint: true
-          prettier: true
+      - name: Run type check
+        uses: icrawl/action-tsc@v1
