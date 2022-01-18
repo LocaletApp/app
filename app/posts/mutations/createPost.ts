@@ -8,7 +8,7 @@ const CreatePost = z.object({
 
 export default resolver.pipe(resolver.zod(CreatePost), resolver.authorize(), ({ name }, ctx) => {
   if (!ctx.session.userId) throw new AuthenticationError("No User")
-  db.post.create({
+  return db.post.create({
     data: { name, authorId: ctx.session.userId },
   })
 })
