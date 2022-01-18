@@ -1,7 +1,7 @@
 import { passportAuth } from "blitz"
 import db from "db"
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
-import { router } from "next/client"
+import { ConfigService } from "../../core/services/config.service"
 
 const googleScopes = ["profile", "email"]
 export default passportAuth({
@@ -11,9 +11,11 @@ export default passportAuth({
     {
       strategy: new GoogleStrategy(
         {
-          clientID: process.env.AUTH_GOOGLE_CLIENTID,
-          clientSecret: process.env.AUTH_GOOGLE_CLIENTSECRET,
-          callbackURL: `${process.env.HOST_URL}/api/auth/google/callback`,
+          clientID: ConfigService.googleStrategyConfig().clientId,
+          clientSecret: ConfigService.googleStrategyConfig().clientSecret,
+          callbackURL: `${ConfigService.host().name}:${
+            ConfigService.host().port
+          }/api/auth/google/callback`,
           scope: googleScopes,
         },
         async function (accessToken, refreshToken, profile, done) {

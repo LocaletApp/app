@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('USER', 'SITE_ADMIN', 'SITE_MODERATOR');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -6,7 +9,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "email" TEXT NOT NULL,
     "hashedPassword" TEXT,
-    "role" TEXT NOT NULL DEFAULT E'USER',
+    "role" "UserRole" NOT NULL DEFAULT E'USER',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -46,7 +49,7 @@ CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "title" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "authorId" INTEGER NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")

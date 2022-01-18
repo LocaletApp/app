@@ -1,6 +1,7 @@
-import { resolver } from "blitz"
-import db from "db"
+import { AuthenticationError, NotFoundError, resolver } from "blitz"
+import db, { UserRole } from "db"
 import { z } from "zod"
+import { Ctx } from "next/dist/shared/lib/utils"
 
 const UpdatePost = z.object({
   id: z.number(),
@@ -10,10 +11,15 @@ const UpdatePost = z.object({
 export default resolver.pipe(
   resolver.zod(UpdatePost),
   resolver.authorize(),
-  async ({ id, ...data }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const post = await db.post.update({ where: { id }, data })
+  async ({ id, ...data }, ctx: Ctx) => {
+    if (!ctx.session.userId) throw new AuthenticationError("No User")
 
-    return post
+    const post = await db.post.findFirst({ where: { id } })
+    if (!post) throw new NotFoundError()
+
+    if (post.authorId != ctx.session.userId) {
+      ctx.session.$authorize([UserRole.SITE_MODERATOR, UserRole.SITE_ADMIN])
+    }
+    return db.post.update({ where: { id }, data })
   }
 )

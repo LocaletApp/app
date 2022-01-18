@@ -69,16 +69,10 @@ const Home: BlitzPage = () => {
             <UserInfo />
           </Suspense>
         </div>
-        <p></p>
         <div className="buttons" style={{ marginTop: "5rem" }}>
-          <a
-            className="button"
-            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          <Button variant="contained" href={Routes.PostsPage().pathname}>
+            Posts
+          </Button>
         </div>
       </main>
 

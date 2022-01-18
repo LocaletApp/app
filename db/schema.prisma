@@ -12,6 +12,12 @@ generator client {
 
 // --------------------------------------
 
+enum UserRole {
+  USER
+  SITE_ADMIN
+  SITE_MODERATOR
+}
+
 model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
@@ -19,7 +25,7 @@ model User {
   name           String?
   email          String   @unique
   hashedPassword String?
-  role           String   @default("USER")
+  role           UserRole @default(USER)
 
   posts    Post[]
   tokens   Token[]
