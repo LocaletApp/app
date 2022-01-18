@@ -20,7 +20,7 @@ export class ConfigService {
     } else {
       return {
         name: this.get("HOST_NAME") || "http://localhost",
-        port: this.get("HOST_PORT") || "3000",
+        port: this.get("HOST_PORT") || ":3000",
       }
     }
   }
@@ -29,7 +29,7 @@ export class ConfigService {
     return {
       clientID: this.get("AUTH_GOOGLE_CLIENTID", true),
       clientSecret: this.get("AUTH_GOOGLE_CLIENTSECRET", true),
-      callbackURL: `${ConfigService.host().name}:${
+      callbackURL: `${ConfigService.host().name}${
         ConfigService.host().port
       }/api/auth/google/callback`,
       scope: ["profile", "email"],
