@@ -19,7 +19,6 @@ export default passportAuth({
         async function (accessToken, refreshToken, profile, done) {
           const email = profile._json.email
           const name = profile._json.name
-          console.log(profile._json)
           const user = await db.user.upsert({
             where: { email },
             create: {
