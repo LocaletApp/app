@@ -14,7 +14,7 @@ export class ConfigService {
   static host() {
     return {
       name: this.get("HOST_NAME") || "http://localhost",
-      port: this.get("HOST_PORT") || "80",
+      port: this.get("HOST_PORT") || "",
     }
   }
 
