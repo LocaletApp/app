@@ -12,9 +12,16 @@ export class ConfigService {
   }
 
   static host() {
-    return {
-      name: this.get("HOST_NAME") || "http://localhost",
-      port: this.get("HOST_PORT") || "",
+    if (this.get("HOST_NAME") != "http://localhost") {
+      return {
+        name: this.get("HOST_NAME"),
+        port: this.get("HOST_PORT") || "",
+      }
+    } else {
+      return {
+        name: this.get("HOST_NAME") || "http://localhost",
+        port: this.get("HOST_PORT") || "3000",
+      }
     }
   }
 
