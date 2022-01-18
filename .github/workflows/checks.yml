@@ -40,6 +40,9 @@ jobs:
     name: Testing
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
