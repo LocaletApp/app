@@ -1,4 +1,3 @@
-import { red } from "@mui/material/colors"
 import { createTheme } from "@mui/material/styles"
 
 // test change
@@ -6,14 +5,24 @@ import { createTheme } from "@mui/material/styles"
 // Create a theme instance.
 const theme = createTheme({
   palette: {
+    mode: "light",
     primary: {
-      main: "#6700EB",
+      main: "#5684FB",
     },
     secondary: {
-      main: "#FFFFFF",
+      main: "#99B5FC",
     },
     error: {
-      main: red.A400,
+      main: "#f57171",
+    },
+    warning: {
+      main: "#f9c77d",
+    },
+    info: {
+      main: "#71bef5",
+    },
+    success: {
+      main: "#7bf186",
     },
   },
 })
