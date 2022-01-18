@@ -3,14 +3,12 @@ previewsEnabled: true
 databases:
   - name: blitzapp-db
     plan: free
-    previewPlan: free
 
 services:
   - type: web
     name: blitzapp
     env: node
     plan: free
-    previewPlan: free
     buildCommand: yarn --frozen-lockfile --prod=false && blitz build && blitz prisma migrate deploy
     startCommand: blitz start
     envVars:
