@@ -17,10 +17,15 @@ export class ConfigService {
       port: this.get("HOST_PORT") || "80",
     }
   }
+
   static googleStrategyConfig() {
     return {
-      clientId: this.get("AUTH_GOOGLE_CLIENTID", true),
+      clientID: this.get("AUTH_GOOGLE_CLIENTID", true),
       clientSecret: this.get("AUTH_GOOGLE_CLIENTSECRET", true),
+      callbackURL: `${ConfigService.host().name}:${
+        ConfigService.host().port
+      }/api/auth/google/callback`,
+      scope: ["profile", "email"],
     }
   }
 }
