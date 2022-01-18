@@ -24,6 +24,7 @@ model User {
   updatedAt      DateTime @updatedAt
   name           String?
   email          String   @unique
+  iconUrl        String?
   hashedPassword String?
   role           UserRole @default(USER)
 

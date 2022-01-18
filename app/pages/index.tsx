@@ -1,10 +1,29 @@
 import { Suspense } from "react"
-import { Image, Link, BlitzPage, useMutation, Routes } from "blitz"
+import { BlitzPage, Image, Link, Routes, useMutation, useRouter } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
-import { Button } from "@mui/material"
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Chip,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from "@mui/material"
+import { Box } from "@mui/system"
+import { Column, Row } from "../core/components/system"
+import { useBoolean } from "../core/hooks/useBoolean"
+import { Close, Logout } from "@mui/icons-material"
+import { LoginController } from "../core/components/LoginController"
+import { ConfigService } from "../core/services/config.service"
+import { UserRole } from "db"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -12,221 +31,124 @@ import { Button } from "@mui/material"
  */
 
 const UserInfo = () => {
+  const router = useRouter()
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
 
+  console.log(currentUser)
+
   if (currentUser) {
     return (
-      <>
-        <Button
-          variant="contained"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </Button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-          <br />
-          User email: <code>{currentUser.email}</code>
-          <br />
-          Name: <code>{currentUser.name}</code>
-        </div>
-      </>
+      <Row spacing={4}>
+        <Column>
+          <Card sx={{ width: 324 }}>
+            <CardHeader
+              avatar={<Avatar src={currentUser.iconUrl ?? ""} />}
+              action={
+                <IconButton color="error" onClick={() => logoutMutation()}>
+                  <Logout />
+                </IconButton>
+              }
+              title={currentUser.name}
+              subheader={currentUser.email}
+            />
+            <CardContent>
+              <Row spacing={2}>
+                <Chip label={`ID: ${currentUser.id}`} />
+                <Chip label={`UserRole: ${currentUser.role}`} />
+              </Row>
+            </CardContent>
+          </Card>
+        </Column>
+      </Row>
     )
   } else {
     return (
-      <>
-        <Button variant="contained" href={Routes.SignupPage().pathname}>
-          Sign Up
-        </Button>
-        <Button variant="contained" href={Routes.LoginPage().pathname}>
-          Login
-        </Button>
-        <Button variant="contained" href={"/api/auth/google"}>
-          Google Login
-        </Button>
-      </>
+      <Row spacing={2}>
+        <Link href={Routes.SignupPage()}>
+          <Button size="large" variant="outlined">
+            Sign Up
+          </Button>
+        </Link>
+        <LoginController
+          childrenLoggedOut={
+            <Button size="large" variant="contained">
+              Login
+            </Button>
+          }
+        >
+          <Avatar />
+        </LoginController>
+      </Row>
     )
   }
 }
 
+const DebugMenu = () => {
+  const user = useCurrentUser()
+  const [isOpen, setIsOpen] = useBoolean(false)
+
+  if (!user || ConfigService.isDebug || user.role !== UserRole.SITE_ADMIN) {
+    return null
+  }
+
+  return (
+    <>
+      <Dialog open={isOpen}>
+        <DialogTitle>
+          Developer Debug Menu
+          <IconButton
+            sx={{ position: "absolute", top: 8, right: 8 }}
+            color="error"
+            onClick={setIsOpen.off}
+          >
+            <Close />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <Column spacing={1}>
+            <Row spacing={1}>
+              <Button variant="outlined">Thanks</Button>
+              <Button variant="outlined">Thanks</Button>
+              <Button variant="outlined">Thanks</Button>
+              <Button variant="outlined">Thanks</Button>
+            </Row>
+            <Row spacing={1}>
+              <Button variant="outlined">Thanks</Button>
+              <Button variant="outlined">Thanks</Button>
+              <Button variant="outlined">Thanks</Button>
+              <Button variant="outlined">Thanks</Button>
+            </Row>
+          </Column>
+        </DialogContent>
+      </Dialog>
+      <Button
+        sx={{ position: "absolute", top: 8, right: 8 }}
+        variant="outlined"
+        color="error"
+        onClick={setIsOpen.on}
+      >
+        DEBUG
+      </Button>
+    </>
+  )
+}
+
 const Home: BlitzPage = () => {
   return (
-    <div className="container">
-      <main>
-        <div className="logo">
-          <Image src={logo} alt="blitzjs" />
-        </div>
-        <p>
-          <strong>Congrats!</strong> Your app is ready, including user sign-up and log-in.
-        </p>
-        <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          <Suspense fallback="Loading...">
-            <UserInfo />
-          </Suspense>
-        </div>
-        <div className="buttons" style={{ marginTop: "5rem" }}>
-          <Button variant="contained" href={Routes.PostsPage().pathname}>
-            Posts
-          </Button>
-          <a
-            className="button"
-            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Blitz.js
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap");
-
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: "Libre Franklin", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        }
-
-        * {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          box-sizing: border-box;
-        }
-        .container {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main p {
-          font-size: 1.2rem;
-        }
-
-        p {
-          text-align: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 60px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #45009d;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer a {
-          color: #f4f4f4;
-          text-decoration: none;
-        }
-
-        .logo {
-          margin-bottom: 2rem;
-        }
-
-        .logo img {
-          width: 300px;
-        }
-
-        .buttons {
-          display: grid;
-          grid-auto-flow: column;
-          grid-gap: 0.5rem;
-        }
-        .button {
-          font-size: 1rem;
-          background-color: #6700eb;
-          padding: 1rem 2rem;
-          color: #f4f4f4;
-          text-align: center;
-        }
-
-        .button.small {
-          padding: 0.5rem 1rem;
-        }
-
-        .button:hover {
-          background-color: #45009d;
-        }
-
-        .button-outline {
-          border: 2px solid #6700eb;
-          padding: 1rem 2rem;
-          color: #6700eb;
-          text-align: center;
-        }
-
-        .button-outline:hover {
-          border-color: #45009d;
-          color: #45009d;
-        }
-
-        pre {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          text-align: center;
-        }
-        code {
-          font-size: 0.9rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-            Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-    </div>
+    <Column minHeight="100vh">
+      <Box>
+        <Image src={logo} alt="Localet" />
+      </Box>
+      <Row spacing={2}>
+        <Suspense fallback={<CircularProgress />}>
+          <UserInfo />
+        </Suspense>
+        <Suspense fallback={<CircularProgress />}>
+          <DebugMenu />
+        </Suspense>
+      </Row>
+    </Column>
   )
 }
 

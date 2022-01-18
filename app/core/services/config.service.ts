@@ -7,21 +7,23 @@ export class ConfigService {
     return value
   }
 
+  static get isDebug() {
+    return this.get("DEBUG") === "absolutely"
+  }
+
   static get databaseURL() {
     return this.get("DATABASE_URL", true)
   }
 
-  static host() {
-    if (this.get("HOST_NAME") != "http://localhost") {
-      return {
-        name: this.get("HOST_NAME"),
-        port: "",
-      }
+  static get hostname() {
+    return this.get("HOST_NAME") || "https://localet.app"
+  }
+
+  static get redirectUri() {
+    if (this.hostname.includes("localhost")) {
+      return this.hostname + ":3000"
     } else {
-      return {
-        name: this.get("HOST_NAME") || "http://localhost",
-        port: this.get("HOST_PORT") || ":3000",
-      }
+      return this.hostname
     }
   }
 
@@ -29,9 +31,7 @@ export class ConfigService {
     return {
       clientID: this.get("AUTH_GOOGLE_CLIENTID", true),
       clientSecret: this.get("AUTH_GOOGLE_CLIENTSECRET", true),
-      callbackURL: `${ConfigService.host().name}${
-        ConfigService.host().port
-      }/api/auth/google/callback`,
+      callbackURL: `${this.redirectUri}/api/auth/google/callback`,
       scope: ["profile", "email"],
     }
   }

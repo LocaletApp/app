@@ -1,4 +1,9 @@
-// import db from "./index"
+import db, { UserRole } from "./index"
+
+/*
+ * Allow easy access for admin emails
+ */
+const ADMIN_EMAILS = ["ken@slinky.link"]
 
 /*
  * This seed function is executed when you run `blitz db seed`.
@@ -8,9 +13,12 @@
  * realistic data.
  */
 const seed = async () => {
-  // for (let i = 0; i < 5; i++) {
-  //   await db.project.create({ data: { name: "Project " + i } })
-  // }
+  for (const email of ADMIN_EMAILS) {
+    const adminUser = await db.user.findFirst({ where: { email } })
+    if (adminUser && adminUser.role !== UserRole.SITE_ADMIN) {
+      await db.user.update({ where: { id: adminUser.id }, data: { role: UserRole.SITE_ADMIN } })
+    }
+  }
 }
 
 export default seed
