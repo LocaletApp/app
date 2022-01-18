@@ -15,7 +15,7 @@ export class ConfigService {
     if (this.get("HOST_NAME") != "http://localhost") {
       return {
         name: this.get("HOST_NAME"),
-        port: this.get("HOST_PORT") || "",
+        port: "",
       }
     } else {
       return {
