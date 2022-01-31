@@ -1,6 +1,6 @@
 import { BlitzLayout } from "blitz"
 import { Head } from "app/core/layouts/meta/Head"
-import { Flex } from "../components/system"
+import { Flex } from "@chakra-ui/react"
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (

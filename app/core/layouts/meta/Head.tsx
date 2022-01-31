@@ -1,5 +1,5 @@
 import { Head as BlitzHead } from "blitz"
-import theme from "app/core/styles/theme"
+import { theme } from "../../theme"
 
 export interface HeadProps {
   title?: string
@@ -14,7 +14,7 @@ export const Head = ({ title = DEFAULT_TITLE }: HeadProps) => (
 
     <meta charSet="utf-8" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="theme-color" content={theme.palette.primary.main} />
+    <meta name="theme-color" content={theme.colors.brand.primary["100"]} />
     <meta name="mobile-web-app-capable" content="no" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

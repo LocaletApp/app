@@ -9,8 +9,8 @@ import {
 } from "blitz"
 import { Children } from "react"
 import createEmotionServer from "@emotion/server/create-instance"
-import theme from "app/core/styles/theme"
 import createEmotionCache from "app/core/utils/createEmotionCache"
+import { theme } from "../core/theme"
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
@@ -75,7 +75,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <DocumentHead>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={theme.colors.brand.primary["100"]} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

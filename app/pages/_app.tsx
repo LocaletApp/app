@@ -1,19 +1,18 @@
 import {
   AppProps,
-  ErrorBoundary,
-  ErrorComponent,
   AuthenticationError,
   AuthorizationError,
+  ErrorBoundary,
+  ErrorComponent,
   ErrorFallbackProps,
   useQueryErrorResetBoundary,
 } from "blitz"
 import LoginForm from "app/auth/components/LoginForm"
-
-import { ThemeProvider } from "@mui/material/styles"
-import CssBaseline from "@mui/material/CssBaseline"
 import { CacheProvider, EmotionCache } from "@emotion/react"
-import theme from "app/core/styles/theme"
 import createEmotionCache from "app/core/utils/createEmotionCache"
+import { ChakraProvider } from "@chakra-ui/react"
+import { theme } from "../core/theme"
+
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
@@ -29,17 +28,16 @@ export default function App({
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <ChakraProvider theme={theme}>
+      <CacheProvider value={emotionCache}>
         <ErrorBoundary
           FallbackComponent={RootErrorFallback}
           onReset={useQueryErrorResetBoundary().reset}
         >
           {getLayout(<Component {...pageProps} />)}
         </ErrorBoundary>
-      </ThemeProvider>
-    </CacheProvider>
+      </CacheProvider>
+    </ChakraProvider>
   )
 }
 

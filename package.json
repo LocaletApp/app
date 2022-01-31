@@ -10,7 +10,8 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "theme:types": "chakra-cli tokens app/core/theme/index.ts"
   },
   "prisma": {
     "schema": "db/schema.prisma"
@@ -25,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@chakra-ui/react": "1.x",
     "@emotion/cache": "11.x",
     "@emotion/react": "11.x",
     "@emotion/server": "11.x",
@@ -34,6 +36,7 @@
     "@mui/material": "5.x",
     "@prisma/client": "3.7.0",
     "blitz": "0.45.0",
+    "framer-motion": "5.x",
     "husky": "7.0.4",
     "material-ui-popup-state": "2.0.0",
     "passport": "0.5.2",
@@ -44,6 +47,7 @@
     "zod": "3.11.6"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "1.7.0",
     "@types/preview-email": "2.0.1",
     "@types/react": "17.0.38",
     "eslint": "7.32.0",
