@@ -1,6 +1,6 @@
 import { opacityForHex } from "../utils/hexOpacity"
-
 import themeData from "../themes/light.theme.json"
+import { Button } from "./components/Button"
 
 export const DEFAULT_MODE = "light"
 
@@ -44,6 +44,7 @@ const rootStyles = {
 
 export const theme = {
   components: {
+    Button,
     Container: {
       baseStyle: {
         p: 0,
@@ -60,7 +61,7 @@ export const theme = {
   styles: {
     global: {
       body: { ...rootStyles, bg: "transparent", width: "100vw" },
-      html: { ...rootStyles, bg: themeData.colors.background.primary, overflowY: "overlay" },
+      html: { ...rootStyles, bg: themeData.colors.background.secondary, overflowY: "overlay" },
       "#__next": rootStyles,
       ':focus:not(:focus-visible):not([role="dialog"]):not([role="menu"])': { boxShadow: "none" },
     },
