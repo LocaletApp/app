@@ -1,18 +1,22 @@
-import { Button, Heading } from "@chakra-ui/react"
+import { Heading, HStack, useToken } from "@chakra-ui/react"
+import { MotionBox, MotionButton, transitionFastConfig } from "./MotionBox"
 
 export const SidebarMenuItem = ({ title, icon }) => {
+  const bgHoverColor = useToken("colors", "ui.10")
+
   return (
-    <Button
+    <MotionButton
       w="full"
-      justifyContent="start"
-      p={4}
-      size="md"
-      variant="ghost"
       color="ui.60"
-      leftIcon={icon}
-      iconSpacing={8}
+      variant="ghostNoHover"
+      whileHover={{ backgroundColor: bgHoverColor }}
+      whileFocus={{ backgroundColor: bgHoverColor }}
+      transition={transitionFastConfig}
     >
-      <Heading color="inherit">{title}</Heading>
-    </Button>
+      <HStack spacing={8} p={4} w="full" justifyContent="start">
+        {icon}
+        <Heading color="inherit">{title}</Heading>
+      </HStack>
+    </MotionButton>
   )
 }

@@ -27,6 +27,9 @@ export const Button: StyleConfig = {
         bg: "ui.10",
       },
     },
+    ghostNoHover: {
+      bg: "transparent",
+    },
   },
   defaultProps: {},
 }
