@@ -1,18 +1,16 @@
 import { BlitzPage, Image } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import logo from "public/logo.png"
-import { Box, Flex, Text } from "@chakra-ui/react"
+import { Box, Flex, HStack, Text } from "@chakra-ui/react"
 import { Tile } from "app/core/components/Tile"
 
 const Home: BlitzPage = () => {
   return (
-    <Flex p={4} boxSize="full" gap={6}>
-      {/* <Box p={4} boxSize={24} bg="text.5"></Box> */}
-      <Tile />
-      <Tile />
-      <Tile />
-      <Tile />
-    </Flex>
+    <HStack p={4} boxSize="full" gap={6}>
+      <Tile price={20.5} imgUrl="https://i.imgur.com/TDcGOhX.jpg" title="balls" />
+      <Tile price={20.5} imgUrl="https://i.imgur.com/TDcGOhX.jpg" title="balls" />
+      <Tile price={20.5} imgUrl="https://i.imgur.com/TDcGOhX.jpg" title="balls" />
+    </HStack>
   )
 }
 
