@@ -1,5 +1,5 @@
 import { Heading, HStack, useToken } from "@chakra-ui/react"
-import { MotionBox, MotionButton, transitionFastConfig } from "./MotionBox"
+import { MotionButton, transitionFastConfig } from "./MotionBox"
 
 export const SidebarMenuItem = ({ title, icon }) => {
   const bgHoverColor = useToken("colors", "ui.10")
